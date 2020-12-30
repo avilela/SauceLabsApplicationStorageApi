@@ -1,7 +1,7 @@
 import os
 
 from json import dumps, loads
-from httpx import get, post, put
+from requests import get, post, put
 from re import search
 from typing import List
 
