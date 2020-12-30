@@ -107,7 +107,7 @@ class SauceStorageApi(object):
             - file_id: str - File identifier supplied by Sauce Labs.
             - output_path: str - Folder where downloaded file will be save.
         """
-        url = self.get_method_url('download', file_id)
+        url = self.get_method_url('storage', 'download', file_id)
         response = self.request(
             url=url,
             method='GET'
