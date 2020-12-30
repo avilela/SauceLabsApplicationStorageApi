@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='Sauce Storage API',
+    name='sauce_storage_api',
     author='Augusto Vilela',
     author_email='avilelateixeira@gmail.com',
     version='1.0.0',
