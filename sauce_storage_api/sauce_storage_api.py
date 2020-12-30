@@ -1,8 +1,9 @@
 import os
 
-from json import loads
+from json import dumps, loads
 from httpx import get, post, put
 from re import search
+from typing import List
 
 SAUCE_API_ENDPOINT = 'https://api.us-west-1.saucelabs.com/v1'
 
@@ -35,9 +36,11 @@ class SauceStorageApi(object):
         self.sauce_api_endpoint = sauce_api_endpoint
 
     def get_method_url(self, group, path=None, query=None):
-        url = f'{self.sauce_api_endpoint}/storage/{group}'
+        url = f'{self.sauce_api_endpoint}/{group}'
         if path:
             url += f'/{path}'
+        if query:
+            url += f'/{query}'
         return url
 
     def get_remote_name(self, file_path, remote_name):
@@ -62,7 +65,7 @@ class SauceStorageApi(object):
         else:
             response = REQUESTS[method](
                 url,
-                data=body,
+                data=dumps(body),
                 files=files,
                 auth=(self.username, self.access_key)
             )
@@ -73,7 +76,7 @@ class SauceStorageApi(object):
             return response
         else:
             raise SauceException(
-                'Sauce Status NOT OK'
+                'Sauce Status NOT OK\n'
                 f'{response.status_code}: {response.text}'
             )
 
@@ -84,7 +87,7 @@ class SauceStorageApi(object):
             - remote_name: str - App name will be in saucelabs
         Return: list
         """
-        url = self.get_method_url('upload')
+        url = self.get_method_url('storage', 'upload')
         remote_name = self.get_remote_name(file_path, remote_name)
         with open(file_path, 'rb') as file:
             files = {
@@ -116,3 +119,13 @@ class SauceStorageApi(object):
             file.write(response.content)
 
         return f'{output_path}/{file_name}'
+
+    def edit(self, file_id: str, body: List):
+        """
+        Args:
+            - file_id: str - File identifier supplied by Sauce Labs.
+            - body: List - Itens you want to change in app 
+        """
+        url = self.get_method_url('storage', 'files', file_id)
+        json_data = self.request(url, body=body, method='PUT')
+        return json_data

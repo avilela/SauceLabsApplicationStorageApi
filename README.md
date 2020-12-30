@@ -49,3 +49,50 @@ sauce_api.download(
 )
 ```
 
+### Edit uploaded app informations
+#### If your need to upload some info of your app
+```python
+resposta_escrota = api.edit(
+    '<file_id>',
+    {'item': {'description':'string'}}
+)
+```
+#### Response will you get will be something like this
+```json
+{
+   "item":{
+      "id": "str",
+      "owner":{
+         "id": "str",
+         "org_id": "str"
+      },
+      "name": "str",
+      "upload_timestamp": timestamp,
+      "etag": "str",
+      "kind": "str",
+      "group_id": "int",
+      "description": "str",
+      "metadata":{
+         "identifier": "str",
+         "name": "str",
+         "version": "str",
+         "is_test_runner": bool,
+         "icon": "str",
+         "version_code": int,
+         "min_sdk": int,
+         "target_sdk": int
+      },
+      "access":{
+         "team_ids":[
+            "str"
+         ],
+         "org_ids":[
+            "str"
+         ]
+      }
+   },
+   "changed": true
+}
+```
+## Warning !!!
+### The SauceLabs documentation doesn't explicit the fields you can change, so try your luck
