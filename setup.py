@@ -8,5 +8,5 @@ setup(
     description='Lib to use saucelabs Application Storage API - https://wiki.saucelabs.com/display/DOCS/Application+Storage',
     packages=find_packages(),
     keyword=['saucelabs', 'application storage'],
-    setup_requires=['httpx']
+    install_requires=['httpx']
 )
