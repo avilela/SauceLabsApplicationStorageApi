@@ -65,7 +65,7 @@ class SauceStorageApi(object):
         else:
             response = REQUESTS[method](
                 url,
-                data=dumps(body),
+                data=body,
                 files=files,
                 auth=(self.username, self.access_key)
             )
@@ -127,5 +127,5 @@ class SauceStorageApi(object):
             - body: List - Itens you want to change in app 
         """
         url = self.get_method_url('storage', 'files', file_id)
-        json_data = self.request(url, body=body, method='PUT')
+        json_data = self.request(url, body=dumps(body), method='PUT')
         return json_data
