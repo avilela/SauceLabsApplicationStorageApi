@@ -67,7 +67,7 @@ resposta_escrota = api.edit(
          "org_id": "str"
       },
       "name": "str",
-      "upload_timestamp": timestamp,
+      "upload_timestamp": "timestamp",
       "etag": "str",
       "kind": "str",
       "group_id": "int",
@@ -76,11 +76,11 @@ resposta_escrota = api.edit(
          "identifier": "str",
          "name": "str",
          "version": "str",
-         "is_test_runner": bool,
+         "is_test_runner": "bool",
          "icon": "str",
-         "version_code": int,
-         "min_sdk": int,
-         "target_sdk": int
+         "version_code": "int",
+         "min_sdk": "int",
+         "target_sdk": "int"
       },
       "access":{
          "team_ids":[
