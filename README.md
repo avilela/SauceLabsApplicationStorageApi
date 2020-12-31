@@ -52,7 +52,7 @@ sauce_api.download(
 ### Edit uploaded app informations
 #### If your need to upload some info of your app
 ```python
-resposta_escrota = api.edit(
+response = api.edit(
     '<file_id>',
     {'item': {'description':'string'}}
 )
@@ -96,3 +96,5 @@ resposta_escrota = api.edit(
 ```
 ## Warning !!!
 ### The SauceLabs documentation doesn't explicit the fields you can change, so try your luck
+
+### eD
