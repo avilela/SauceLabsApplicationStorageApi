@@ -96,5 +96,3 @@ response = api.edit(
 ```
 ## Warning !!!
 ### The SauceLabs documentation doesn't explicit the fields you can change, so try your luck
-
-### eD
