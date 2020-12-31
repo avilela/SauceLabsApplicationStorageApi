@@ -1,16 +1,18 @@
 import os
 
 from json import dumps, loads
-from requests import get, post, put
 from re import search
 from typing import List
+
+from requests import get, post, put, delete
 
 SAUCE_API_ENDPOINT = 'https://api.us-west-1.saucelabs.com/v1'
 
 REQUESTS = {
     'GET': get,
     'POST': post,
-    'PUT': put
+    'PUT': put,
+    'DELETE': delete
 }
 
 
@@ -35,7 +37,7 @@ class SauceStorageApi(object):
         self.access_key = access_key
         self.sauce_api_endpoint = sauce_api_endpoint
 
-    def get_method_url(self, group, path=None, query=None):
+    def get_method_url(self, group: str, path: str = None, query: str = None):
         url = f'{self.sauce_api_endpoint}/{group}'
         if path:
             url += f'/{path}'
@@ -43,7 +45,7 @@ class SauceStorageApi(object):
             url += f'/{query}'
         return url
 
-    def get_remote_name(self, file_path, remote_name):
+    def get_remote_name(self, file_path: str, remote_name: str):
         """
         Check if remote_name is been pass if not return base_name of apk as
         remote_name
@@ -80,7 +82,7 @@ class SauceStorageApi(object):
                 f'{response.status_code}: {response.text}'
             )
 
-    def upload(self, file_path, remote_name=None) -> list:
+    def upload(self, file_path: str, remote_name: str = None) -> list:
         """
         Args:
             - file_path: str - File path in host
@@ -120,12 +122,27 @@ class SauceStorageApi(object):
 
         return f'{output_path}/{file_name}'
 
-    def edit(self, file_id: str, body: List):
+    def edit(self, file_id: str, body: List) -> list:
         """
         Args:
             - file_id: str - File identifier supplied by Sauce Labs.
-            - body: List - Itens you want to change in app 
+            - body: List - Itens you want to change in app
+        Return: List
         """
         url = self.get_method_url('storage', 'files', file_id)
         json_data = self.request(url, body=dumps(body), method='PUT')
+        return json_data
+
+    def delete_app(self, file_id: str = None, group_id: str = None) -> list:
+        """
+        Args:
+            - file_id: str - File identifier supplied by Sauce Labs.
+            - group_id: str - Group identifier supplied by Sauce Labs.
+        Return: List
+        """
+        if file_id:
+            url = self.get_method_url('storage', 'files', file_id)
+        if group_id:
+            url = self.get_method_url('storage', 'groups', group_id)
+        json_data = self.request(url, method='DELETE')
         return json_data

@@ -14,7 +14,7 @@ sauce_api = SauceStorageApi(
     access_key='<access_key>'
 )
 ```
-if you need different endpoint of ```https://api.us-west-1.saucelabs.com/v1```
+if you need different endpoint of  ```https://api.us-west-1.saucelabs.com/v1```
 ```python
 from sauce_storage_api import SauceStorageApi
 
@@ -24,6 +24,8 @@ sauce_api = SauceStorageApi(
     sauce_api_endpoint='<your_sauceserver_endpoint>'
 )
 ```
+
+<br />
 
 ### Upload your app
 #### For upload your app to application storage
@@ -40,6 +42,7 @@ sauce_api.upload(
 )
 ```
 
+<br />
 
 ### Download uploaded app
 #### If you need to download your app 
@@ -48,6 +51,8 @@ sauce_api.download(
     '<file_id>',
 )
 ```
+
+<br />
 
 ### Edit uploaded app informations
 #### If your need to upload some info of your app
@@ -94,5 +99,17 @@ response = api.edit(
    "changed": true
 }
 ```
-## Warning !!!
-### The SauceLabs documentation doesn't explicit the fields you can change, so try your luck
+#### Warning !
+#### The SauceLabs documentation doesn't explicit the fields you can change, so try your luck
+
+<br />
+
+### Delete App
+#### If want delete specific file
+```python
+response = api.delete_app(file_id='<file_id>')
+```
+#### If want delete specific group of files
+```python
+response = api.delete_app(group_id='<group_id>')
+```
