@@ -38,6 +38,15 @@ class SauceStorageApi(object):
         self.sauce_api_endpoint = sauce_api_endpoint
 
     def get_method_url(self, group: str, path: str = None, query: str = None):
+        """
+        Genarate url by method called
+
+        Args:
+            - group: str 
+            - path: str = None
+            - query: str = None
+        Return str
+        """
         url = f'{self.sauce_api_endpoint}/{group}'
         if path:
             url += f'/{path}'
@@ -49,19 +58,22 @@ class SauceStorageApi(object):
         """
         Check if remote_name is been pass if not return base_name of apk as
         remote_name
+
         Args:
-            - file_path
-            - remote_name
+            - file_path : str
+            - remote_name: str
         Return str
         """
         if remote_name is None:
             remote_name = os.path.basename(file_path)
         return remote_name
 
-    def request(self, url, body=None, files=None, method: str = 'GET'):
+    def request(self, url, body=None, files=None, params=None,
+                method: str = 'GET'):
         if method == 'GET':
             response = REQUESTS[method](
                 url,
+                params=params,
                 auth=(self.username, self.access_key)
             )
         else:
@@ -84,6 +96,8 @@ class SauceStorageApi(object):
 
     def upload(self, file_path: str, remote_name: str = None) -> list:
         """
+        Upload your app to Saucelabs.
+
         Args:
             - file_path: str - File path in host
             - remote_name: str - App name will be in saucelabs
@@ -105,6 +119,8 @@ class SauceStorageApi(object):
 
     def download(self, file_id: str, output_path: str) -> str:
         """
+        Download specific app by file_id.
+
         Args:
             - file_id: str - File identifier supplied by Sauce Labs.
             - output_path: str - Folder where downloaded file will be save.
@@ -124,6 +140,8 @@ class SauceStorageApi(object):
 
     def edit(self, file_id: str, body: List) -> list:
         """
+        Edit information in specific app by file_id
+
         Args:
             - file_id: str - File identifier supplied by Sauce Labs.
             - body: List - Itens you want to change in app
@@ -135,10 +153,12 @@ class SauceStorageApi(object):
 
     def delete_app(self, file_id: str = None, group_id: str = None) -> list:
         """
+        Delete specific app by file_id or delete group of apps by group_id
+
         Args:
             - file_id: str - File identifier supplied by Sauce Labs.
             - group_id: str - Group identifier supplied by Sauce Labs.
-        Return: List
+        Return: list
         """
         if file_id:
             url = self.get_method_url('storage', 'files', file_id)
@@ -146,3 +166,58 @@ class SauceStorageApi(object):
             url = self.get_method_url('storage', 'groups', group_id)
         json_data = self.request(url, method='DELETE')
         return json_data
+
+    def files(self, q: str = None, kind: str = None, file_id: str = None,
+              team_id: str = None, page: int = 1, per_page: int = 25):
+        """
+        List uploaded files by follow parameters
+
+        Args:
+            - q: str = None - Search term (semantic version, build number,
+            file name, app name, app identifier, etc.)
+            - kind: str = None - ios, android, other
+            - file_id: str = None - One or more group ids to be listed
+            - team_id: str = None - One or more team ids the listed file(s) 
+            should be shared with
+            - page: int = 1 - The number of the current page to show, by 
+            default it starts from one
+            - per_page: int = 25 - The count of items per listed page. By 
+            default it is 25, and the acceptable range is 1-100
+        """
+        default_params = {
+            'q': q, 'kind': kind, 'file_id': file_id,
+            'team_id': team_id, 'page': page, 'per_page': per_page
+        }
+        params = {
+            key: value for key, value in default_params.items()
+            if value is not None
+        }
+        url = self.get_method_url('storage', 'files')
+
+        return self.request(url, params=params)
+
+    def groups(self, q: str = None, kind: str = None, file_id: str = None,
+               page: int = 1, per_page: int = 25):
+        """
+        List group of app by follow parameters
+        Args:
+            - q: str = None - Search term (semantic version, build number, 
+            file name, app name, app identifier, etc.)
+            - kind: str = None - ios, android, other
+            - file_id: str = None - One or more group ids to be listed
+            - page: int = 1 - The number of the current page to show, by 
+            default it starts from one
+            - per_page: int = 25 - The count of items per listed page. By 
+            default it is 25, and the acceptable range is 1-100
+        """
+        default_params = {
+            'q': q, 'kind': kind, 'file_id': file_id, 'page': page,
+            'per_page': per_page
+        }
+        params = {
+            key: value for key, value in default_params.items()
+            if value is not None
+        }
+        url = self.get_method_url('storage', 'groups')
+
+        return self.request(url, params=params)

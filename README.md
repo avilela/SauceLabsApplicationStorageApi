@@ -113,3 +113,33 @@ response = api.delete_app(file_id='<file_id>')
 ```python
 response = api.delete_app(group_id='<group_id>')
 ```
+
+<br />
+
+### Files
+#### If want to list all your files and properties
+```python
+api.files(
+   q='<query>',
+   kind='<kind>',
+   file_id='<file_id>',
+   team_id='<team_id>',
+   page='<page>', 
+   per_page='<per_page>'
+)
+```
+
+<br />
+
+### Groups (App)
+#### If want to list all your app's grouped and properties
+```python
+api.files(
+   q='<query>',
+   kind='<kind>',
+   file_id='<file_id>',
+   team_id='<team_id>',
+   page='<page>', 
+   per_page='<per_page>'
+)
+```
