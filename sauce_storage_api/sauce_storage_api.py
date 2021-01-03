@@ -42,7 +42,7 @@ class SauceStorageApi(object):
         Genarate url by method called
 
         Args:
-            - group: str 
+            - group: str
             - path: str = None
             - query: str = None
         Return str
@@ -177,11 +177,11 @@ class SauceStorageApi(object):
             file name, app name, app identifier, etc.)
             - kind: str = None - ios, android, other
             - file_id: str = None - One or more group ids to be listed
-            - team_id: str = None - One or more team ids the listed file(s) 
+            - team_id: str = None - One or more team ids the listed file(s)
             should be shared with
-            - page: int = 1 - The number of the current page to show, by 
+            - page: int = 1 - The number of the current page to show, by
             default it starts from one
-            - per_page: int = 25 - The count of items per listed page. By 
+            - per_page: int = 25 - The count of items per listed page. By
             default it is 25, and the acceptable range is 1-100
         """
         default_params = {
@@ -201,13 +201,13 @@ class SauceStorageApi(object):
         """
         List group of app by follow parameters
         Args:
-            - q: str = None - Search term (semantic version, build number, 
+            - q: str = None - Search term (semantic version, build number,
             file name, app name, app identifier, etc.)
             - kind: str = None - ios, android, other
             - file_id: str = None - One or more group ids to be listed
-            - page: int = 1 - The number of the current page to show, by 
+            - page: int = 1 - The number of the current page to show, by
             default it starts from one
-            - per_page: int = 25 - The count of items per listed page. By 
+            - per_page: int = 25 - The count of items per listed page. By
             default it is 25, and the acceptable range is 1-100
         """
         default_params = {
