@@ -7,12 +7,12 @@ setup(
     name='sauce_storage_api',
     author='Augusto Vilela',
     author_email='avilelateixeira@gmail.com',
-    version='1.0.1',
+    version='1.0.2',
     description='Lib to use saucelabs Application Storage API - https://wiki.saucelabs.com/display/DOCS/Application+Storage',
     long_description=long_description,
     long_description_content_type="text/markdown",
     packages=find_packages(),
     keyword=['saucelabs', 'application storage'],
     install_requires=['requests'],
-    python_requires='>=3'
+    python_requires='>=3.6'
 )
