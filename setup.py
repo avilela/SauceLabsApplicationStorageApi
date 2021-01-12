@@ -13,5 +13,6 @@ setup(
     long_description_content_type="text/markdown",
     packages=find_packages(),
     keyword=['saucelabs', 'application storage'],
-    install_requires=['requests']
+    install_requires=['requests'],
+    python_requires='>=3'
 )
