@@ -6,6 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name='sauce_storage_api',
     author='Augusto Vilela',
+    url='https://github.com/avilela/SauceLabsApplicationStorageApi',
     author_email='avilelateixeira@gmail.com',
     version='1.0.2',
     description='Lib to use saucelabs Application Storage API - https://wiki.saucelabs.com/display/DOCS/Application+Storage',
