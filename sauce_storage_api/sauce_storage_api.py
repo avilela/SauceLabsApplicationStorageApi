@@ -20,7 +20,7 @@ class SauceException(Exception):
     pass
 
 
-class SauceStorageApi(object):
+class SauceStorageApi:
     """
     Args:
         - username: str - username from saucelabs
@@ -28,6 +28,10 @@ class SauceStorageApi(object):
         - sauce_api_endpoint: str - api endpoint you want to use if default
           https://api.us-west-1.saucelabs.com/v1 not serve your propose
     """
+    username: str
+    access_key: str
+    sauce_api_endpoint: str
+    remote_app: dict
 
     def __init__(
         self, username: str, access_key: str,
@@ -94,7 +98,7 @@ class SauceStorageApi(object):
                 f'{response.status_code}: {response.text}'
             )
 
-    def upload(self, file_path: str, remote_name: str = None) -> list:
+    def upload(self, file_path: str, remote_name: str = None) -> dict:
         """
         Upload your app to Saucelabs.
 
@@ -115,7 +119,8 @@ class SauceStorageApi(object):
                 files=files,
                 method='POST'
             )
-            return json_data
+            self.remote_app = json_data
+            return self.remote_app
 
     def download(self, file_id: str, output_path: str) -> str:
         """
@@ -221,3 +226,6 @@ class SauceStorageApi(object):
         url = self.get_method_url('storage', 'groups')
 
         return self.request(url, params=params)
+    
+    def get_file_id():
+        return self.remote_app['item']['id']
