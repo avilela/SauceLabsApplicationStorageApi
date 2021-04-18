@@ -25,8 +25,6 @@ sauce_api = SauceStorageApi(
 )
 ```
 
-<br />
-
 ### Upload your app
 #### For upload your app to application storage
 ```python
@@ -40,6 +38,12 @@ sauce_api.upload(
     '<app_path>',
     '<remote_name>'
 )
+```
+
+<br />
+#### Get App Id
+```
+sauce_api.get_file_id()
 ```
 
 <br />
@@ -62,6 +66,8 @@ response = api.edit(
     {'item': {'description':'string'}}
 )
 ```
+
+<br />
 #### Response will you get will be something like this
 ```json
 {
