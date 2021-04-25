@@ -5,6 +5,11 @@ This repository has the purpose of abstracting the use of the Application Store 
 
 ## Usage
 
+### Installation
+```sh
+pip install sauce-storage-api 
+```
+
 ### Instantiate 
 ```python
 from sauce_storage_api import SauceStorageApi
@@ -41,6 +46,7 @@ sauce_api.upload(
 ```
 
 <br />
+
 #### Get App Id
 ```
 sauce_api.get_file_id()
